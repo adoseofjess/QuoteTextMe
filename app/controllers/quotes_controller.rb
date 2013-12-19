@@ -9,8 +9,8 @@ class QuotesController < ApplicationController
     # twiml.text
     
     
-    category = params[:category]
-    quote = Quote.find_all_by_category("happiness").sample.body
+    category = params[:Body]
+    quote = Quote.find_all_by_category("adversity").sample.body
     render :json => quote
   end
 end
