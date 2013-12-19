@@ -19,10 +19,12 @@ class QuotesController < ApplicationController
     quote = Quote.find_all_by_category(category).sample.body
     render :json => quote
     
-    @twilio_client.account.sms.messages.create(
+    response = @twilio_client.account.sms.messages.create(
           :from => "+1#{twilio_phone_number}",
           :to => number_to_send_to,
           :body => "#{quote}"
         )
+    
+    puts response
   end
 end
