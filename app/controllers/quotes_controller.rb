@@ -1,7 +1,13 @@
 class QuotesController < ApplicationController
   def get_quote_by_category
-    category = params[:category]
-    quote = Quote.find_all_by_category(category).sample.body
-    render :json => quote
+    twiml = Twilio::TwiML::Response.new do |r|
+        r.Message "Hey Monkey. Thanks for the message!"
+      end
+      twiml.text
+    
+    
+    # category = params[:category]
+#     quote = Quote.find_all_by_category(category).sample.body
+#     render :json => quote
   end
 end
