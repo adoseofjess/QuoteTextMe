@@ -1,0 +1,12 @@
+Type in a category: 
+
+<% Quote.pluck(:category).uniq.each do |category| %>
+<%= category %>
+<% end %>
+
+<form action="/quotes/category" method="get" accept-charset="utf-8">
+  <label for="quote-category"></label><input type="text" name="category" value="" id="">
+  
+
+  <p><input type="submit" value="Get Quote"></p>
+</form>
