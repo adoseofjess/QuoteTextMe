@@ -1,3 +1,5 @@
+require 'sinatra'
+
 class QuotesController < ApplicationController
   def get_quote_by_category
     twiml = Twilio::TwiML::Response.new do |r|
