@@ -6,12 +6,11 @@ gem "unirest", "~> 1.1.1"
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-require 'twilio-ruby'
-require 'sinatra'
+gem 'twilio-ruby'
+gem 'sinatra'
 
 gem 'pg'
 gem 'nokogiri'
-require 'open-uri'
 gem 'addressable'
 
 # Gems used only for assets and not required
