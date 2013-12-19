@@ -10,7 +10,7 @@ class QuotesController < ApplicationController
     
     
     category = params[:category]
-    quote = Quote.find_all_by_category(category).sample.body
+    quote = Quote.find_all_by_category("happiness").sample.body
     render :json => quote
   end
 end
