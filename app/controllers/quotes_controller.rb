@@ -5,7 +5,8 @@ class QuotesController < ApplicationController
     twiml = Twilio::TwiML::Response.new do |r|
         r.Message "Hey Monkey. Thanks for the message!"
       end
-      twiml.text
+    puts "get quote by category reached"
+    twiml.text
     
     
     # category = params[:category]
