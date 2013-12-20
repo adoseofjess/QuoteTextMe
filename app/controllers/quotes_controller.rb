@@ -17,6 +17,7 @@ class QuotesController < ApplicationController
     @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_token
     
     quote = Quote.find_all_by_category(category).sample.body
+    
     if quote.length > 320
       quote_words_array = quote.split(" ")
       midpoint = quote_words_array.length / 3
