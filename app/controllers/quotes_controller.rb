@@ -17,7 +17,31 @@ class QuotesController < ApplicationController
     @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_token
     
     quote = Quote.find_all_by_category(category).sample.body
-    if quote.length >= 160
+    if quote.length > 320
+      quote_words_array = quote.split(" ")
+      midpoint = quote_words_array.length / 3
+      first_sms = quote_words_array[0...midpoint].join("")
+      second_sms = quote_words_array[2*midpoint...3*midpoint].join("")
+      third_sms = quotes_words_array[3*midpoint..-1].join("")
+      
+      @twilio_client.account.sms.messages.create(
+            :from => "+1#{twilio_phone_number}",
+            :to => number_to_send_to,
+            :body => "#{first_sms}"
+          )
+          
+      @twilio_client.account.sms.messages.create(
+            :from => "+1#{twilio_phone_number}",
+            :to => number_to_send_to,
+            :body => "#{second_sms}"
+          )    
+          
+      @twilio_client.account.sms.messages.create(
+            :from => "+1#{twilio_phone_number}",
+            :to => number_to_send_to,
+            :body => "#{third_sms}"
+          )  
+    elsif quote.length >= 160 && quote.length <= 320
       quote_words_array = quote.split(" ")
       midpoint = quote_words_array.length / 2
       first_sms = quote_words_array[0...midpoint].join("")
@@ -35,7 +59,7 @@ class QuotesController < ApplicationController
             :body => "#{second_sms}"
           )    
        
-    else 
+    elsif quote.length < 160 
       @twilio_client.account.sms.messages.create(
             :from => "+1#{twilio_phone_number}",
             :to => number_to_send_to,
