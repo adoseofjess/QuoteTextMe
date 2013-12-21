@@ -2,7 +2,7 @@ require 'sinatra'
 
 class QuotesController < ApplicationController
   def get_quote_by_category    
-    @categories = Quote.pluck(:category).uniq
+    @categories = Quote.pluck(:category).uniq.join(", ")
     
     twilio_sid = "ACd7dd27b30e686e40faa24877ad956ff2"
     twilio_token = "7ec5eea31b2e81aa582b360c683b7a1a"
@@ -17,7 +17,7 @@ class QuotesController < ApplicationController
       @twilio_client.account.sms.messages.create(
             :from => "+1#{twilio_phone_number}",
             :to => number_to_send_to,
-            :body => @categories
+            :body => "#{@categories}"
           )
     elsif @categories.include?(params[:Body])
       puts "print quote"
@@ -27,6 +27,7 @@ class QuotesController < ApplicationController
       quote = Quote.find_all_by_category(category).sample.body
     
       if quote.length > 320
+        puts "quote length > 320"
         quote_words_array = quote.split(" ")
         midpoint = quote_words_array.length / 3
         first_sms = quote_words_array[0...midpoint].join("")
@@ -51,6 +52,7 @@ class QuotesController < ApplicationController
               :body => "#{third_sms}"
             )  
       elsif quote.length >= 160 && quote.length <= 320
+        puts "quote length between 160 and 320"
         quote_words_array = quote.split(" ")
         midpoint = quote_words_array.length / 2
         first_sms = quote_words_array[0...midpoint].join("")
@@ -69,6 +71,7 @@ class QuotesController < ApplicationController
             )    
        
       elsif quote.length < 160 
+        puts "quote length < 160"
         @twilio_client.account.sms.messages.create(
               :from => "+1#{twilio_phone_number}",
               :to => number_to_send_to,
