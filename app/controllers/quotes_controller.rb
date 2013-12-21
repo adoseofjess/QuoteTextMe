@@ -12,6 +12,7 @@ class QuotesController < ApplicationController
     
     if params[:Body] == "categories"
       puts "categories"
+      @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_token
       @twilio_client.account.sms.messages.create(
             :from => "+1#{twilio_phone_number}",
             :to => number_to_send_to,
@@ -75,6 +76,7 @@ class QuotesController < ApplicationController
       end
     else
       puts "not valid category"
+      @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_token
       @twilio_client.account.sms.messages.create(
             :from => "+1#{twilio_phone_number}",
             :to => number_to_send_to,
