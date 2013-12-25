@@ -8,9 +8,10 @@
   
   
   <div class="front-overlay-message-content">
-    <div class="font-overlay-message">
-      QuoteText is a collection of quotes that you can access by SMS. Try texting one of these categories: 
+    <div class="front-overlay-message">
+      QuoteText is a collection of quotes that you can access by SMS. 
     </div>
+    <div class="text-instructions">Try texting (424) 903-2256 one of these categories: </div>
     <div class="quote-categories">
       <% Quote.pluck(:category).uniq.each do |category| %>
       "<%= category %>"
