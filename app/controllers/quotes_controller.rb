@@ -2,7 +2,7 @@ require 'sinatra'
 
 class QuotesController < ApplicationController
   def get_quote_by_category    
-    @categories = Quote.pluck(:category).uniq.join(", ")
+    @categories = Quote.pluck(:category).uniq.sort.join(", ")
     
     twilio_sid = "ACd7dd27b30e686e40faa24877ad956ff2"
     twilio_token = "7ec5eea31b2e81aa582b360c683b7a1a"
@@ -56,7 +56,9 @@ class QuotesController < ApplicationController
         quote_words_array = quote.split(" ")
         midpoint = quote_words_array.length / 2
         first_sms = quote_words_array[0...midpoint].join("")
+        puts first_sms
         second_sms = quote_words_array[midpoint..-1].join("")
+        puts second_sms
       
         @twilio_client.account.sms.messages.create(
               :from => "+1#{twilio_phone_number}",
@@ -71,7 +73,7 @@ class QuotesController < ApplicationController
             )    
        
       elsif quote.length < 160 
-        puts "quote length "
+        puts "quote length < 160"
         @twilio_client.account.sms.messages.create(
               :from => "+1#{twilio_phone_number}",
               :to => number_to_send_to,

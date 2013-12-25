@@ -5,84 +5,84 @@ task :fetch_quotes => :environment do
   require 'addressable/uri'
 
 
-  page1 = Nokogiri::HTML(open("http://www.quotegarden.com/action.html"))
-  page2 = Nokogiri::HTML(open("http://www.quotegarden.com/adversity.html"))
-  page3 = Nokogiri::HTML(open("http://www.quotegarden.com/beauty.html"))
-  page4 = Nokogiri::HTML(open("http://www.quotegarden.com/boldness.html"))
-  page5 = Nokogiri::HTML(open("http://www.quotegarden.com/change.html"))
-  page6 = Nokogiri::HTML(open("http://www.quotegarden.com/confidence.html"))
-  page7 = Nokogiri::HTML(open("http://www.quotegarden.com/dreams.html"))
-  page8 = Nokogiri::HTML(open("http://www.quotegarden.com/courage.html"))
-  page9 = Nokogiri::HTML(open("http://www.quotegarden.com/truth.html"))
-  page10 = Nokogiri::HTML(open("http://www.quotegarden.com/wisdom.html"))
+  page1 = Nokogiri::HTML(open("http://www.quotegarden.com/love.html"))
+  page2 = Nokogiri::HTML(open("http://www.quotegarden.com/age.html"))
+  page3 = Nokogiri::HTML(open("http://www.quotegarden.com/death.html"))
+  page4 = Nokogiri::HTML(open("http://www.quotegarden.com/success.html"))
+  page5 = Nokogiri::HTML(open("http://www.quotegarden.com/family.html"))
+  page6 = Nokogiri::HTML(open("http://www.quotegarden.com/opportunities.html"))
+  page7 = Nokogiri::HTML(open("http://www.quotegarden.com/mistakes.html"))
+  page8 = Nokogiri::HTML(open("http://www.quotegarden.com/forgiveness.html"))
+  page9 = Nokogiri::HTML(open("http://www.quotegarden.com/emotions.html"))
+  page10 = Nokogiri::HTML(open("http://www.quotegarden.com/life.html"))
   
   page1.css("p").text.split("\n").each do |quote|
     if !quote.empty?
       Quote.create(body: quote,
-                   category: "action")
+                   category: "love")
     end
   end
   
   page2.css("p").text.split("\n").each do |quote|
     if !quote.empty?
       Quote.create(body: quote,
-                   category: "adversity")
+                   category: "age")
     end
   end
   
   page3.css("p").text.split("\n").each do |quote|
     if !quote.empty?
       Quote.create(body: quote,
-                   category: "beauty")
+                   category: "death")
     end
   end
   
   page4.css("p").text.split("\n").each do |quote|
     if !quote.empty?
       Quote.create(body: quote,
-                   category: "boldness")
+                   category: "success")
     end
   end
   
   page5.css("p").text.split("\n").each do |quote|
     if !quote.empty?
       Quote.create(body: quote,
-                   category: "change")
+                   category: "family")
     end
   end
   
   page6.css("p").text.split("\n").each do |quote|
     if !quote.empty?
       Quote.create(body: quote,
-                   category: "confidence")
+                   category: "opportunities")
     end
   end
   
   page7.css("p").text.split("\n").each do |quote|
     if !quote.empty?
       Quote.create(body: quote,
-                   category: "dreams")
+                   category: "mistakes")
     end
   end
   
   page8.css("p").text.split("\n").each do |quote|
     if !quote.empty?
       Quote.create(body: quote,
-                   category: "courage")
+                   category: "forgiveness")
     end
   end
   
   page9.css("p").text.split("\n").each do |quote|
     if !quote.empty?
       Quote.create(body: quote,
-                   category: "truth")
+                   category: "emotions")
     end
   end
   
   page10.css("p").text.split("\n").each do |quote|
     if !quote.empty?
       Quote.create(body: quote,
-                   category: "wisdom")
+                   category: "life")
     end
   end
   
