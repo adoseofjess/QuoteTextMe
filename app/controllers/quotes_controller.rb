@@ -17,7 +17,7 @@ class QuotesController < ApplicationController
       @twilio_client.account.sms.messages.create(
             :from => "+1#{twilio_phone_number}",
             :to => number_to_send_to,
-            :body => "Quote categories: #{@categories}"
+            :body => "#{@categories}"
           )
     elsif @categories.include?(params[:Body])
       puts "print quote"

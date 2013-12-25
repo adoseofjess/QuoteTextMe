@@ -38,6 +38,14 @@ html, body {
   opacity:0.5;
 }
 
+.quote-text-logo {
+  float: left;
+  color: white;
+  font-family: 'Varela Round', sans-serif;
+  font-size: 40px;
+  margin-left: 20px;
+}
+
 .front-overlay-message-content {
   background: transparent;
   width: 44%;
@@ -50,20 +58,11 @@ html, body {
   margin-top: 100px;
   text-align: center;
   font-family: 'Arial';
-  
 }
 
 .front-overlay-message {
   font-size: 40px;
   color: white;
-}
-
-.quote-text-logo {
-  float: left;
-  color: white;
-  font-family: 'Varela Round', sans-serif;
-  font-size: 40px;
-  margin-left: 20px;
 }
 
 .footer-copyright {
