@@ -13,15 +13,31 @@ class QuotesController < ApplicationController
     if params[:Body] == "categories"
       puts "categories"
       puts @categories
-      @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_token
-      @twilio_client.account.sms.messages.create(
-            :from => "+1#{twilio_phone_number}",
-            :to => number_to_send_to,
-            :body => "#{@categories}"
-          )
+      
+      if @categories.length > 150
+        @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_token
+        @twilio_client.account.sms.messages.create(
+              :from => "+1#{twilio_phone_number}",
+              :to => number_to_send_to,
+              :body => "#{@categories[0...150]}"
+            )
+        @twilio_client.account.sms.messages.create(
+              :from => "+1#{twilio_phone_number}",
+              :to => number_to_send_to,
+              :body => "#{@categories[150..-1]}"
+            )
+        
+      else
+        @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_token
+        @twilio_client.account.sms.messages.create(
+              :from => "+1#{twilio_phone_number}",
+              :to => number_to_send_to,
+              :body => "#{@categories}"
+            )
+      end
     elsif @categories.include?(params[:Body])
       puts "print quote"
-      category = params[:Body]
+      category = params[:Body].downcase
       @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_token
     
       quote = Quote.find_all_by_category(category).sample.body
