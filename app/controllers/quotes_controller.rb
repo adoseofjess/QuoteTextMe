@@ -12,10 +12,43 @@ class QuotesController < ApplicationController
     
     puts params[:Body]
     
-    if params[:Body].downcase.strip == "categories"
+    if params[:Body].downcase.strip == "start"
       puts "categories"
       puts @categories
       
+      if @categories.length > 150
+        @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_token
+        @twilio_client.account.sms.messages.create(
+              :from => "+1#{twilio_phone_number}",
+              :to => number_to_send_to,
+              :body => "Welcome to TextQuote! Try sending a text with one of the following categories (you can always text 'categories'):"
+            )
+        @twilio_client.account.sms.messages.create(
+              :from => "+1#{twilio_phone_number}",
+              :to => number_to_send_to,
+              :body => "#{@categories[0...150]}"
+            )
+        @twilio_client.account.sms.messages.create(
+              :from => "+1#{twilio_phone_number}",
+              :to => number_to_send_to,
+              :body => "#{@categories[150..-1]}"
+            )
+        
+      else
+        @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_token
+        @twilio_client.account.sms.messages.create(
+              :from => "+1#{twilio_phone_number}",
+              :to => number_to_send_to,
+              :body => "Try sending a text with one of the following categories:"
+            )
+        @twilio_client.account.sms.messages.create(
+              :from => "+1#{twilio_phone_number}",
+              :to => number_to_send_to,
+              :body => "#{@categories}"
+            )
+      end
+    
+    elsif params[:Body].downcase.strip == "categories"
       if @categories.length > 150
         @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_token
         @twilio_client.account.sms.messages.create(
@@ -47,6 +80,7 @@ class QuotesController < ApplicationController
               :body => "#{@categories}"
             )
       end
+      
     elsif @categories.include?(params[:Body])
       puts "print quote"
       category = params[:Body].downcase.strip
