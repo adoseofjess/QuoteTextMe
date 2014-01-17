@@ -90,7 +90,9 @@ class QuotesController < ApplicationController
       
       quote2 = Quote.find_all_by_category(category).find_all { |quote| quote.body.length < 160 }.sample.body
       puts quote1
+      puts quote1.length
       puts quote2
+      puts quote2.length
       
       @twilio_client.account.sms.messages.create(
             :from => "+1#{twilio_phone_number}",
