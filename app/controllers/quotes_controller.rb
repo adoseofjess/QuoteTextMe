@@ -88,7 +88,7 @@ class QuotesController < ApplicationController
     
       quote1 = Quote.find_all_by_category(category).sample.body
       
-      quote2 = Quote.find_all_by_category(category).find_all { |quote| quote.body.length < 160 }.find_all { |quote| !quote.include?("google") }.sample.body
+      quote2 = Quote.find_all_by_category(category).find_all { |quote| quote.body.length < 160 }.find_all { |quote| !quote.body.include?("google") }.sample.body
       puts quote1
       puts quote1.length
       puts quote2
