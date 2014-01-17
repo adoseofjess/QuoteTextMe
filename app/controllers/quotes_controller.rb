@@ -81,7 +81,7 @@ class QuotesController < ApplicationController
             )
       end
       
-    elsif @categories.include?(params[:Body])
+    elsif @categories.include?(params[:Body].downcase.strip)
       puts "print quote"
       category = params[:Body].downcase.strip
       @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_token
