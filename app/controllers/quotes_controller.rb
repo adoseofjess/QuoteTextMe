@@ -52,8 +52,12 @@ class QuotesController < ApplicationController
       category = params[:Body].downcase.strip
       @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_token
     
-      quote = Quote.find_all_by_category(category).sample.body
-    
+      quote1 = Quote.find_all_by_category(category).sample.body
+      
+      quote2 = Quote.find_all_by_category(category).find_all { |quote| quote.length < 150 }.sample.body
+      debugger
+      
+      
       if quote.length > 320
         puts "quote length > 320"
         quote_words_array = quote.split(" ")
